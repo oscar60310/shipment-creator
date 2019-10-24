@@ -36,7 +36,7 @@ const reducer = (state: BasicInfo, action) => {
   localStorage.setItem('basic-config', JSON.stringify(newState));
   return newState;
 };
-const BasicInfoContext = React.createContext<{
+export const BasicInfoContext = React.createContext<{
   state: BasicInfo;
   dispatch?: React.Dispatch<{ type: string; payload: any }>;
 }>({

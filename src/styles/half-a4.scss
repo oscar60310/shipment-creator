@@ -1,0 +1,68 @@
+.half-a4 {
+  .bt {
+    border-top: 1px solid black;
+  }
+  .bb {
+    border-bottom: 1px solid black;
+  }
+  .br {
+    border-right: 1px solid black;
+  }
+  .bl {
+    border-left: 1px solid black;
+  }
+
+  .bx {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+
+  .by {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .bf {
+    border: 1px solid black;
+  }
+  .p3 {
+    padding: 3px;
+  }
+  .fc {
+    display: flex;
+    flex-direction: column;
+  }
+  .tc {
+    text-align: center;
+  }
+  .item {
+    display: flex;
+    flex: 0 0 350px;
+    & > div:nth-child(1) {
+      width: 40%;
+    }
+    & > div:nth-child(2) {
+      width: 10%;
+    }
+    & > div:nth-child(3) {
+      width: 10%;
+    }
+    & > div:nth-child(4) {
+      width: 20%;
+    }
+    & > div:nth-child(5) {
+      width: 20%;
+    }
+    & > div {
+      border-right: 1px solid black;
+      height: 100%;
+      & > div:nth-child(15) {
+        border-bottom: none;
+      }
+      & > div {
+        border-bottom: 1px solid black;
+        padding: 3px;
+      }
+    }
+  }
+}

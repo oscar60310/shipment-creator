@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { Select } from '@blueprintjs/select';
 import { CustomerInfo, ItemInfo } from '@libs/db';
-import {
-  Button,
-  MenuItem,
-  Label,
-  Divider,
-  InputGroup
-} from '@blueprintjs/core';
+import { Button, Label, Divider, InputGroup } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
 import {
   getAllCustomer,
@@ -17,6 +11,8 @@ import {
 import dayjs from 'dayjs';
 import { OrderItem } from '@libs/order';
 import { renderItemMenuItem, filterItem, getAllItem } from '@libs/items-db';
+import { createHalfA4Report } from '@libs/report/half-a4';
+import { useBasicInfo, BasicInfoContext } from 'src/context/basic-info';
 const tableMiddle = {
   verticalAlign: 'middle'
 };
@@ -169,6 +165,28 @@ export class Creator extends React.Component<
       }
       return price;
     }, 0);
+    const createReport = (
+      <BasicInfoContext.Consumer>
+        {({ state }) => (
+          <Button
+            disabled={totalPrice === 0}
+            onClick={() =>
+              createHalfA4Report({
+                companyName: state.companyName,
+                companyPhone: state.phone,
+                companyAddress: state.address,
+                customerName: targetCustomer ? targetCustomer.name : '',
+                customerAddress: targetCustomer ? targetCustomer.address : '',
+                items: orderItemList,
+                date: date
+              })
+            }
+          >
+            建立報表
+          </Button>
+        )}
+      </BasicInfoContext.Consumer>
+    );
     return (
       <div>
         <h2 className="bp3-heading">建立出貨單</h2>
@@ -230,6 +248,9 @@ export class Creator extends React.Component<
         <Divider />
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <h3 className="bp3-heading">總價: {totalPrice.toFixed(2)}</h3>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          {createReport}
         </div>
       </div>
     );

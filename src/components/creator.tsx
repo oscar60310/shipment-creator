@@ -149,6 +149,12 @@ export class Creator extends React.Component<
         </tr>
       );
     });
+    const totalPrice = orderItemList.reduce<number>((price, item) => {
+      if (item.name && item.quantity && item.unitPrice) {
+        return price + item.quantity * item.unitPrice;
+      }
+      return price;
+    }, 0);
     return (
       <div>
         <h2 className="bp3-heading">建立出貨單</h2>
@@ -206,6 +212,10 @@ export class Creator extends React.Component<
             </thead>
             <tbody>{itemTableList}</tbody>
           </table>
+        </div>
+        <Divider />
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <h3 className="bp3-heading">總價: {totalPrice}</h3>
         </div>
       </div>
     );

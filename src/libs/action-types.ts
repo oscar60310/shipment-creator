@@ -1,0 +1,1 @@
+export const LOAD_BASIC_INFO = 'LOAD_BASIC_INFO';

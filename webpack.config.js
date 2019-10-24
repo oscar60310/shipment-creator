@@ -2,7 +2,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
+const webpack = require('webpack');
 module.exports = {
   context: path.resolve('src/'),
   entry: {
@@ -26,6 +26,10 @@ module.exports = {
         loader: 'style-loader!css-loader!sass-loader'
       },
       {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /.svg$/],
         loader: 'url-loader',
         query: {
@@ -43,6 +47,11 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './index.html',
       filename: './index.html'
+    }),
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify({
+        name: process.env.NODE_ENV
+      })
     })
   ],
   devServer: {

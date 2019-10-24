@@ -6,7 +6,8 @@ import {
   Navbar,
   NavbarDivider,
   NavbarGroup,
-  NavbarHeading
+  NavbarHeading,
+  AnchorButton
 } from '@blueprintjs/core';
 import { useBasicInfo } from 'src/context/basic-info';
 export const Nav = () => {
@@ -16,8 +17,30 @@ export const Nav = () => {
       <NavbarGroup align={Alignment.LEFT}>
         <NavbarHeading>{state && state.companyName}</NavbarHeading>
         <NavbarDivider />
-        <Button className={Classes.MINIMAL} icon="home" text="建立出貨單" />
-        <Button className={Classes.MINIMAL} icon="cog" text="基本設定" />
+        <AnchorButton
+          className={Classes.MINIMAL}
+          icon="home"
+          text="建立出貨單"
+          href="/#/"
+        />
+        <AnchorButton
+          className={Classes.MINIMAL}
+          icon="cog"
+          text="基本設定"
+          href="/#/setting"
+        />
+        <AnchorButton
+          className={Classes.MINIMAL}
+          icon="person"
+          text="客戶設定"
+          href="/#/customer"
+        />
+        <AnchorButton
+          className={Classes.MINIMAL}
+          icon="box"
+          text="產品設定"
+          href="/#/item"
+        />
       </NavbarGroup>
     </Navbar>
   );

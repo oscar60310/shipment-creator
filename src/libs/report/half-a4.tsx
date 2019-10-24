@@ -2,6 +2,8 @@ import { Order } from '@libs/order';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import dayjs from 'dayjs';
+import 'src/styles/index.scss';
+
 const center: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
@@ -88,7 +90,7 @@ export const HalfA4Report = (props: { order: Order }) => {
               <div>
                 <div>小計</div>
                 {order.items.map((x, i) => (
-                  <div key={i}>{x.quantity * x.unitPrice}</div>
+                  <div key={i}>{(x.quantity * x.unitPrice).toFixed(2)}</div>
                 ))}
               </div>
             </div>
@@ -96,7 +98,7 @@ export const HalfA4Report = (props: { order: Order }) => {
               className="br p3"
               style={{ ...center, textAlign: 'right', flex: '1 1 0' }}
             >
-              本單金額: {totalPrice}
+              本單金額: {totalPrice.toFixed(0)}
             </div>
           </div>
           <div
@@ -121,13 +123,84 @@ export const HalfA4Report = (props: { order: Order }) => {
 };
 
 export const createHalfA4Report = (order: Order) => {
-  const re = window.open('', '', 'width=300,heigh=500');
+  const re = window.open('', '', 'width=1000,height=500');
   if (!re) {
     throw 'Window open failed';
   }
   const el = document.createElement('div');
   ReactDOM.render(<HalfA4Report order={order} />, el);
   re.document.body.appendChild(el);
+  const style = document.createElement('style');
+  style.innerHTML = `.half-a4 .bt {
+    border-top: 1px solid black;
+ }
+  .half-a4 .bb {
+    border-bottom: 1px solid black;
+ }
+  .half-a4 .br {
+    border-right: 1px solid black;
+ }
+  .half-a4 .bl {
+    border-left: 1px solid black;
+ }
+  .half-a4 .bx {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+ }
+  .half-a4 .by {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+ }
+  .half-a4 .bf {
+    border: 1px solid black;
+ }
+  .half-a4 .p3 {
+    padding: 3px;
+ }
+  .half-a4 .fc {
+    display: flex;
+    flex-direction: column;
+ }
+  .half-a4 .tc {
+    text-align: center;
+ }
+  .half-a4 .item {
+    display: flex;
+    flex: 0 0 325px;
+ }
+  .half-a4 .item > div:nth-child(1) {
+    width: 40%;
+ }
+  .half-a4 .item > div:nth-child(2) {
+    width: 10%;
+ }
+  .half-a4 .item > div:nth-child(3) {
+    width: 10%;
+ }
+  .half-a4 .item > div:nth-child(4) {
+    width: 20%;
+ }
+  .half-a4 .item > div:nth-child(5) {
+    width: 20%;
+ }
+  .half-a4 .item > div {
+    border-right: 1px solid black;
+    height: 100%;
+ }
+  .half-a4 .item > div > div:nth-child(13) {
+    border-bottom: none;
+ }
+  .half-a4 .item > div > div {
+    border-bottom: 1px solid black;
+    padding: 3px;
+    height: 18px; 
+ }
+ body{
+   margin: 0;
+   box-sizing: border-box;
+ }
+  `;
+  re.document.head.appendChild(style);
   re.print();
   re.close();
 };

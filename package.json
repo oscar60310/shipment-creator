@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@blueprintjs/datetime": "^3.14.0",
     "@blueprintjs/select": "^3.11.1",
     "@testing-library/react": "^9.2.0",
     "@types/jest": "^24.0.18",

@@ -6,6 +6,7 @@ import { Creator } from './creator';
 import { Setting } from './setting';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
+import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import { Provider } from 'src/context/provider';
 import { Nav } from './nav';
 import { Customer } from './customer';

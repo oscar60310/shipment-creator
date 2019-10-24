@@ -21,25 +21,25 @@ export const Nav = () => {
           className={Classes.MINIMAL}
           icon="home"
           text="建立出貨單"
-          href="/#/"
+          href="#"
         />
         <AnchorButton
           className={Classes.MINIMAL}
           icon="cog"
           text="基本設定"
-          href="/#/setting"
+          href="#/setting"
         />
         <AnchorButton
           className={Classes.MINIMAL}
           icon="person"
           text="客戶設定"
-          href="/#/customer"
+          href="#/customer"
         />
         <AnchorButton
           className={Classes.MINIMAL}
           icon="box"
           text="產品設定"
-          href="/#/item"
+          href="#/item"
         />
       </NavbarGroup>
     </Navbar>

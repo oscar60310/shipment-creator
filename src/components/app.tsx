@@ -9,6 +9,7 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import { Provider } from 'src/context/provider';
 import { Nav } from './nav';
 import { Customer } from './customer';
+import { ItemManager } from './item';
 
 const AppComponent = () => {
   return (
@@ -23,6 +24,9 @@ const AppComponent = () => {
               </Route>
               <Route path="/customer">
                 <Customer />
+              </Route>
+              <Route path="/item">
+                <ItemManager />
               </Route>
               <Route path="/">
                 <Creator />

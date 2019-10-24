@@ -8,10 +8,11 @@ import {
   Card,
   Elevation
 } from '@blueprintjs/core';
+import { CustomerInfo } from '@libs/db';
 
 export class Customer extends React.Component<
   {},
-  { customerList: db.CustomerInfo[] }
+  { customerList: CustomerInfo[] }
 > {
   constructor(props) {
     super(props);
@@ -35,12 +36,12 @@ export class Customer extends React.Component<
     await db.deleteCustomer(id);
     await this.loadCustomer();
   }
-  public async updateCustomer(data: db.CustomerInfo) {
+  public async updateCustomer(data: CustomerInfo) {
     await db.updateCustomer(data);
     await this.loadCustomer();
   }
   public render() {
-    const customerDisplay = (data: db.CustomerInfo) => {
+    const customerDisplay = (data: CustomerInfo) => {
       return (
         <div key={data.id} style={{ margin: '10px 0' }}>
           <Card elevation={Elevation.TWO}>

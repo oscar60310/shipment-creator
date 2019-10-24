@@ -1,6 +1,6 @@
 export interface OrderItem {
   name?: string;
   unit?: string;
-  unitPrice?: number;
+  unitPrice: number;
   quantity: number;
 }

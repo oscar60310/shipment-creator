@@ -56,7 +56,10 @@ export class Creator extends React.Component<
   }
   private addItem() {
     this.setState({
-      orderItemList: [...this.state.orderItemList, { quantity: 0 }]
+      orderItemList: [
+        ...this.state.orderItemList,
+        { quantity: 0, unitPrice: 0 }
+      ]
     });
   }
   private updateOrderByItemInfo(item: ItemInfo, index: number) {
@@ -121,7 +124,18 @@ export class Creator extends React.Component<
             )}
           </td>
           <td style={tableMiddle}>{item.unit}</td>
-          <td style={tableMiddle}>{item.unitPrice}</td>
+          <td>
+            <InputGroup
+              value={item.unitPrice.toString()}
+              type="number"
+              onChange={e => {
+                this.updateOrder(
+                  { ...item, unitPrice: parseFloat(e.target.value) },
+                  i
+                );
+              }}
+            />
+          </td>
           <td>
             <InputGroup
               value={item.quantity.toString()}
@@ -215,7 +229,7 @@ export class Creator extends React.Component<
         </div>
         <Divider />
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <h3 className="bp3-heading">總價: {totalPrice}</h3>
+          <h3 className="bp3-heading">總價: {totalPrice.toFixed(2)}</h3>
         </div>
       </div>
     );

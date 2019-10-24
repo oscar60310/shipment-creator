@@ -8,6 +8,7 @@ import { Setting } from './setting';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import { Provider } from 'src/context/provider';
 import { Nav } from './nav';
+import { Customer } from './customer';
 
 const AppComponent = () => {
   return (
@@ -19,6 +20,9 @@ const AppComponent = () => {
             <Switch>
               <Route path="/setting">
                 <Setting />
+              </Route>
+              <Route path="/customer">
+                <Customer />
               </Route>
               <Route path="/">
                 <Creator />

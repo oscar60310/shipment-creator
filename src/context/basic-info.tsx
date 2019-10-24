@@ -5,11 +5,14 @@ export interface BasicInfo {
   phone: string;
   address: string;
 }
-const initState: BasicInfo = {
-  companyName: 'Company Name',
-  phone: '',
-  address: ''
-};
+const configString = localStorage.getItem('basic-config');
+const initState: BasicInfo = configString
+  ? JSON.parse(configString)
+  : {
+      companyName: 'Company Name',
+      phone: '',
+      address: ''
+    };
 
 const reducer = (state: BasicInfo, action) => {
   let newState = state;
@@ -22,6 +25,12 @@ const reducer = (state: BasicInfo, action) => {
       break;
     case 'CHANGE_COMPANY_ADDR':
       newState = { ...state, address: action.payload };
+      break;
+    case 'LOAD_CONFIG':
+      const s = localStorage.getItem('basic-config');
+      if (s) {
+        newState = JSON.parse(s);
+      }
       break;
   }
   localStorage.setItem('basic-config', JSON.stringify(newState));

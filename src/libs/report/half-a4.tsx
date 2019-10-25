@@ -202,5 +202,5 @@ export const createHalfA4Report = (order: Order) => {
   `;
   re.document.head.appendChild(style);
   re.print();
-  re.close();
+  // re.close();
 };

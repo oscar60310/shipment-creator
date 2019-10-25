@@ -7,3 +7,9 @@ import AppComponent from './components/app';
 
 const app = document.getElementById('app');
 render(<AppComponent />, app);
+// Service worker register
+(function() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+})();

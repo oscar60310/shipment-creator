@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+
 module.exports = {
   context: path.resolve('src/'),
   entry: {
@@ -52,6 +56,26 @@ module.exports = {
       ENV: JSON.stringify({
         name: process.env.NODE_ENV
       })
+    }),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'shipment-creator',
+      filename: 'service-worker.js',
+      minify: true,
+      navigateFallback: 'https://oscar60310.github.io/shipment-creator',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+    }),
+    new WebpackPwaManifest({
+      name: 'Shipment Creator',
+      short_name: 'Shipment Creator',
+      description: 'Shipment Creator',
+      background_color: '#2196f3',
+      crossorigin: null, //can be null, use-credentials or anonymous
+      icons: [
+        {
+          src: path.resolve('src/icons/icon-512x512.png'),
+          sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+        }
+      ]
     })
   ],
   devServer: {

@@ -10,7 +10,12 @@ const center: React.CSSProperties = {
   justifyContent: 'center'
 };
 
-export const HalfA4Report = (props: { order: Order }) => {
+export const HalfA4Report = (props: {
+  order: Order;
+  page: number;
+  totalPage: number;
+  totalPrice: number;
+}) => {
   const { order } = props;
   const totalPrice = order.items.reduce<number>((price, item) => {
     if (item.name && item.quantity && item.unitPrice) {
@@ -26,7 +31,8 @@ export const HalfA4Report = (props: { order: Order }) => {
         height: '60vw',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginBottom: props.page === props.totalPage ? 0 : 15
       }}
     >
       <div style={{ textAlign: 'center', fontSize: '18pt' }}>
@@ -37,7 +43,7 @@ export const HalfA4Report = (props: { order: Order }) => {
           <div>{order.companyAddress}</div>
           <div>{order.companyPhone}</div>
         </div>
-        <div style={{ textAlign: 'center', fontSize: '18pt' }}> 出貨單</div>
+        <div style={{ textAlign: 'center', fontSize: '18pt' }}>出貨單</div>
         <div
           style={{
             ...center,
@@ -46,6 +52,9 @@ export const HalfA4Report = (props: { order: Order }) => {
             fontSize: '11pt'
           }}
         >
+          <div>
+            頁次: {props.page}/{props.totalPage}
+          </div>
           <div>出貨日期: {dayjs(order.date).format('YYYY/MM/DD')}</div>
         </div>
       </div>
@@ -98,7 +107,8 @@ export const HalfA4Report = (props: { order: Order }) => {
               className="br p3"
               style={{ ...center, textAlign: 'right', flex: '1 1 0' }}
             >
-              本單金額: {totalPrice.toFixed(0)}
+              本單金額: {totalPrice.toFixed(0)}, 總金額:{' '}
+              {props.totalPrice.toFixed(0)}
             </div>
           </div>
           <div
@@ -128,7 +138,30 @@ export const createHalfA4Report = (order: Order) => {
     throw 'Window open failed';
   }
   const el = document.createElement('div');
-  ReactDOM.render(<HalfA4Report order={order} />, el);
+  const orderSplit: Order[] = [];
+  for (let i = 0; i < order.items.length; i += 12) {
+    orderSplit.push({ ...order, items: order.items.slice(i, i + 12) });
+  }
+  const totalPrice = order.items.reduce<number>((price, item) => {
+    if (item.name && item.quantity && item.unitPrice) {
+      return price + item.quantity * item.unitPrice;
+    }
+    return price;
+  }, 0);
+  ReactDOM.render(
+    <>
+      {orderSplit.map((x, i) => (
+        <HalfA4Report
+          order={x}
+          key={i}
+          totalPrice={totalPrice}
+          totalPage={orderSplit.length}
+          page={i + 1}
+        />
+      ))}
+    </>,
+    el
+  );
   re.document.body.appendChild(el);
   const style = document.createElement('style');
   style.innerHTML = `.half-a4 .bt {

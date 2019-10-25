@@ -104,7 +104,7 @@ export const HalfA4Report = (props: {
               </div>
             </div>
             <div
-              className="br p3"
+              className="p3"
               style={{ ...center, textAlign: 'right', flex: '1 1 0' }}
             >
               本單金額: {totalPrice.toFixed(0)}, 總金額:{' '}
@@ -118,6 +118,7 @@ export const HalfA4Report = (props: {
               flexDirection: 'column',
               height: '100%'
             }}
+            className="bl"
           >
             <div style={{ flex: '1 1 0', width: '100%' }}>
               <div className="tc bb p3">備註</div>
@@ -214,6 +215,7 @@ export const createHalfA4Report = (order: Order) => {
     width: 20%;
  }
   .half-a4 .item > div:nth-child(5) {
+    border-right: none;
     width: 20%;
  }
   .half-a4 .item > div {
@@ -237,9 +239,9 @@ export const createHalfA4Report = (order: Order) => {
   setTimeout(() => {
     re.print();
   }, 500);
-  re.onfocus = () => {
-    setTimeout(() => {
-      re.close();
-    }, 500);
-  };
+  // re.onfocus = () => {
+  //   setTimeout(() => {
+  //     re.close();
+  //   }, 500);
+  // };
 };

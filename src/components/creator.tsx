@@ -40,17 +40,19 @@ const QuantityInput = (props: {
     return (
       <div style={{ display: 'flex' }}>
         <InputGroup
-          defaultValue={u1}
+          value={u1}
           type="number"
           onChange={e => {
+            if (isNaN(e.target.value) || e.target.value.length === 0) return;
             props.onFinish(`${e.target.value}斤${u2}兩`);
           }}
         />
         <div style={{ ...tableMiddle, margin: 'auto 5px' }}>斤</div>
         <InputGroup
-          defaultValue={u2}
+          value={u2}
           type="number"
           onChange={e => {
+            if (isNaN(e.target.value) || e.target.value.length === 0) return;
             props.onFinish(`${u1}斤${e.target.value}兩`);
           }}
         />
@@ -174,6 +176,8 @@ export class Creator extends React.Component<
               value={item.unitPrice.toString()}
               type="number"
               onChange={e => {
+                if (isNaN(e.target.value) || e.target.value.length === 0)
+                  return;
                 this.updateOrder(
                   { ...item, unitPrice: parseFloat(e.target.value) },
                   i

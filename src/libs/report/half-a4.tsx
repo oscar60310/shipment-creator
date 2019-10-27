@@ -12,7 +12,7 @@ const center: React.CSSProperties = {
   justifyContent: 'center'
 };
 /**
- * 21.49cm x 14.00cm 6mm border
+ * 21.49cm x 14.00cm 10mm border
  * @param props
  */
 export const HalfA4Report = (props: {
@@ -154,8 +154,8 @@ export const createHalfA4Report = (order: Order) => {
   }
   const el = document.createElement('div');
   const orderSplit: Order[] = [];
-  for (let i = 0; i < order.items.length; i += 12) {
-    orderSplit.push({ ...order, items: order.items.slice(i, i + 12) });
+  for (let i = 0; i < order.items.length; i += 11) {
+    orderSplit.push({ ...order, items: order.items.slice(i, i + 11) });
   }
   const totalPrice = order.items.reduce<number>((price, item) => {
     if (item.name && item.quantity && item.unitPrice) {
@@ -216,7 +216,7 @@ export const createHalfA4Report = (order: Order) => {
  }
   .half-a4 .item {
     display: flex;
-    flex: 0 0 326px;
+    flex: 0 0 300px;
  }
   .half-a4 .item > div:nth-child(1) {
     width: 40%;
@@ -238,7 +238,7 @@ export const createHalfA4Report = (order: Order) => {
     border-right: 1px solid black;
     height: 100%;
  }
-  .half-a4 .item > div > div:nth-child(13) {
+  .half-a4 .item > div > div:nth-child(12) {
     border-bottom: none;
  }
   .half-a4 .item > div > div {

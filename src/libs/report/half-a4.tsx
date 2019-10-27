@@ -11,7 +11,10 @@ const center: React.CSSProperties = {
   flexDirection: 'column',
   justifyContent: 'center'
 };
-
+/**
+ * 21.49cm x 14.00cm 6mm border
+ * @param props
+ */
 export const HalfA4Report = (props: {
   order: Order;
   page: number;

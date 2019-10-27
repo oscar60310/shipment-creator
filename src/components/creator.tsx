@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { OrderItem } from '@libs/order';
 import { renderItemMenuItem, filterItem, getAllItem } from '@libs/items-db';
 import { createHalfA4Report } from '@libs/report/half-a4';
-import { useBasicInfo, BasicInfoContext } from 'src/context/basic-info';
+import { BasicInfoContext } from 'src/context/basic-info';
 import {
   quantityTransfer,
   isQuantityAcceptable
@@ -27,6 +27,37 @@ const QuantityInput = (props: {
   unit: string | undefined;
   onFinish: (args: string) => void;
 }) => {
+  if (props.unit === '斤') {
+    let u1 = '0';
+    let u2 = '0';
+    const pattern = /(\d+)斤(\d+)兩/;
+    if (pattern.test(props.value)) {
+      const re = pattern.exec(props.value);
+      if (!re) throw 'parse error';
+      u1 = re[1];
+      u2 = re[2];
+    }
+    return (
+      <div style={{ display: 'flex' }}>
+        <InputGroup
+          defaultValue={u1}
+          type="number"
+          onChange={e => {
+            props.onFinish(`${e.target.value}斤${u2}兩`);
+          }}
+        />
+        <div style={{ ...tableMiddle, margin: 'auto 5px' }}>斤</div>
+        <InputGroup
+          defaultValue={u2}
+          type="number"
+          onChange={e => {
+            props.onFinish(`${u1}斤${e.target.value}兩`);
+          }}
+        />
+        <div style={{ ...tableMiddle, margin: 'auto 5px' }}>兩</div>
+      </div>
+    );
+  }
   return (
     <InputGroup
       defaultValue={props.value}
@@ -262,7 +293,7 @@ export class Creator extends React.Component<
             <thead>
               <tr>
                 <th>編號</th>
-                <th>品項</th>
+                <th style={{ minWidth: 150 }}>品項</th>
                 <th>單位</th>
                 <th>單價</th>
                 <th>數量</th>

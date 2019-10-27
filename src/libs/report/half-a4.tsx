@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import dayjs from 'dayjs';
 import 'src/styles/index.scss';
+import { quantityTransfer } from '@libs/quantity-transfer';
 
 const FONT_SIZE = 12;
 const center: React.CSSProperties = {
@@ -20,7 +21,9 @@ export const HalfA4Report = (props: {
   const { order } = props;
   const totalPrice = order.items.reduce<number>((price, item) => {
     if (item.name && item.quantity && item.unitPrice) {
-      return price + item.quantity * item.unitPrice;
+      return (
+        price + quantityTransfer(item.quantity, item.unit) * item.unitPrice
+      );
     }
     return price;
   }, 0);
@@ -103,7 +106,11 @@ export const HalfA4Report = (props: {
               <div>
                 <div>小計</div>
                 {order.items.map((x, i) => (
-                  <div key={i}>{(x.quantity * x.unitPrice).toFixed(2)}</div>
+                  <div key={i}>
+                    {(
+                      quantityTransfer(x.quantity, x.unit) * x.unitPrice
+                    ).toFixed(2)}
+                  </div>
                 ))}
               </div>
             </div>
@@ -149,7 +156,9 @@ export const createHalfA4Report = (order: Order) => {
   }
   const totalPrice = order.items.reduce<number>((price, item) => {
     if (item.name && item.quantity && item.unitPrice) {
-      return price + item.quantity * item.unitPrice;
+      return (
+        price + quantityTransfer(item.quantity, item.unit) * item.unitPrice
+      );
     }
     return price;
   }, 0);

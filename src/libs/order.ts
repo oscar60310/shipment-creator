@@ -2,7 +2,7 @@ export interface OrderItem {
   name?: string;
   unit?: string;
   unitPrice: number;
-  quantity: number;
+  quantity: string;
 }
 export interface Order {
   companyName: string;

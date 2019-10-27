@@ -13,12 +13,30 @@ import { OrderItem } from '@libs/order';
 import { renderItemMenuItem, filterItem, getAllItem } from '@libs/items-db';
 import { createHalfA4Report } from '@libs/report/half-a4';
 import { useBasicInfo, BasicInfoContext } from 'src/context/basic-info';
+import {
+  quantityTransfer,
+  isQuantityAcceptable
+} from '@libs/quantity-transfer';
 const tableMiddle = {
   verticalAlign: 'middle'
 };
 const CustomerSelect = Select.ofType<CustomerInfo>();
 const ItemSelect = Select.ofType<ItemInfo>();
-
+const QuantityInput = (props: {
+  value: string;
+  unit: string | undefined;
+  onFinish: (args: string) => void;
+}) => {
+  return (
+    <InputGroup
+      defaultValue={props.value}
+      type="number"
+      onChange={e => {
+        props.onFinish(e.target.value);
+      }}
+    />
+  );
+};
 export class Creator extends React.Component<
   {},
   {
@@ -54,7 +72,7 @@ export class Creator extends React.Component<
     this.setState({
       orderItemList: [
         ...this.state.orderItemList,
-        { quantity: 0, unitPrice: 0 }
+        { quantity: '0', unitPrice: 0 }
       ]
     });
   }
@@ -64,7 +82,7 @@ export class Creator extends React.Component<
       name: item.name,
       unit: item.unit,
       unitPrice: item.price,
-      quantity: 0
+      quantity: '0'
     };
     this.setState({ orderItemList: newOrder });
   }
@@ -133,20 +151,22 @@ export class Creator extends React.Component<
             />
           </td>
           <td>
-            <InputGroup
-              value={item.quantity.toString()}
-              type="number"
-              onChange={e => {
-                this.updateOrder(
-                  { ...item, quantity: parseFloat(e.target.value) },
-                  i
-                );
+            <QuantityInput
+              value={item.quantity}
+              unit={item.unit}
+              onFinish={v => {
+                this.updateOrder({ ...item, quantity: v }, i);
               }}
             />
           </td>
           <td style={tableMiddle}>
-            {item.unitPrice && item.quantity
-              ? (item.unitPrice * item.quantity).toFixed(2)
+            {item.unitPrice &&
+            item.quantity &&
+            item.unit &&
+            isQuantityAcceptable(item.quantity, item.unit)
+              ? (
+                  item.unitPrice * quantityTransfer(item.quantity, item.unit)
+                ).toFixed(2)
               : '-'}
           </td>
           <td>
@@ -160,8 +180,16 @@ export class Creator extends React.Component<
       );
     });
     const totalPrice = orderItemList.reduce<number>((price, item) => {
-      if (item.name && item.quantity && item.unitPrice) {
-        return price + item.quantity * item.unitPrice;
+      if (
+        item.name &&
+        item.quantity &&
+        item.unitPrice &&
+        item.unit &&
+        isQuantityAcceptable(item.quantity, item.unit)
+      ) {
+        return (
+          price + quantityTransfer(item.quantity, item.unit) * item.unitPrice
+        );
       }
       return price;
     }, 0);

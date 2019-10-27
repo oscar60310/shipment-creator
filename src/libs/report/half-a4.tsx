@@ -4,6 +4,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import 'src/styles/index.scss';
 
+const FONT_SIZE = 12;
 const center: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
@@ -28,7 +29,7 @@ export const HalfA4Report = (props: {
       className="half-a4"
       style={{
         width: '100%',
-        height: '60vw',
+        height: '61vw',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -39,7 +40,7 @@ export const HalfA4Report = (props: {
         {order.companyName}
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ ...center, flex: '0 0 30%', fontSize: '11pt' }}>
+        <div style={{ ...center, flex: '0 0 30%', fontSize: `${FONT_SIZE}pt` }}>
           <div>{order.companyAddress}</div>
           <div>{order.companyPhone}</div>
         </div>
@@ -49,7 +50,7 @@ export const HalfA4Report = (props: {
             ...center,
             flex: '0 0 30%',
             textAlign: 'right',
-            fontSize: '11pt'
+            fontSize: `${FONT_SIZE}pt`
           }}
         >
           <div>
@@ -58,7 +59,10 @@ export const HalfA4Report = (props: {
           <div>出貨日期: {dayjs(order.date).format('YYYY/MM/DD')}</div>
         </div>
       </div>
-      <div className="bf fc" style={{ fontSize: '11pt', flex: '1 1 0' }}>
+      <div
+        className="bf fc"
+        style={{ fontSize: `${FONT_SIZE}pt`, flex: '1 1 0' }}
+      >
         <div className="bb" style={{ display: 'flex' }}>
           <div className="br p3">客戶寶號</div>
           <div style={{ flex: '1 1 0' }} className="br p3">
@@ -200,7 +204,7 @@ export const createHalfA4Report = (order: Order) => {
  }
   .half-a4 .item {
     display: flex;
-    flex: 0 0 325px;
+    flex: 0 0 326px;
  }
   .half-a4 .item > div:nth-child(1) {
     width: 40%;
@@ -233,6 +237,7 @@ export const createHalfA4Report = (order: Order) => {
  body{
    margin: 0;
    box-sizing: border-box;
+   font-weight: 600;
  }
   `;
   re.document.head.appendChild(style);

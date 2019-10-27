@@ -103,7 +103,7 @@ export class Creator extends React.Component<
     this.setState({
       orderItemList: [
         ...this.state.orderItemList,
-        { quantity: '0', unitPrice: 0 }
+        { quantity: '0', unitPrice: 0, unit: '單位' }
       ]
     });
   }
@@ -193,7 +193,6 @@ export class Creator extends React.Component<
           <td style={tableMiddle}>
             {item.unitPrice &&
             item.quantity &&
-            item.unit &&
             isQuantityAcceptable(item.quantity, item.unit)
               ? (
                   item.unitPrice * quantityTransfer(item.quantity, item.unit)
@@ -215,7 +214,6 @@ export class Creator extends React.Component<
         item.name &&
         item.quantity &&
         item.unitPrice &&
-        item.unit &&
         isQuantityAcceptable(item.quantity, item.unit)
       ) {
         return (

@@ -1,5 +1,3 @@
-# Shipment Creator
-
 ![shipment-github-title](assets/shipment-github-title.png)
 
 讓小型企業在沒有 ERP 系統的環境下，利用網頁直接產生出貨單。

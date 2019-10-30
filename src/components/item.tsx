@@ -47,7 +47,7 @@ export class ItemManager extends React.Component<{}, { itemList: ItemInfo[] }> {
               <FormGroup label="名稱" labelFor={`Item-${data.id}-name`}>
                 <InputGroup
                   id={`Item-${data.id}-name`}
-                  placeholder="紅羅波"
+                  placeholder="胡蘿蔔"
                   onChange={e =>
                     this.updateItem({ ...data, name: e.target.value })
                   }

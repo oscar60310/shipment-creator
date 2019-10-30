@@ -28,11 +28,14 @@ https://oscar60310.github.io/shipment-creator
 
 ## 開發
 
+使用 React + Typescript 開發，資料儲存在 Localstorage 以及 Index DB 中。
+
 ### 修改專案
 
 1. Clone repository `git clone git@github.com:oscar60310/shipment-creator.git`
 2. Install package `npm install`
 3. Run test server `npm start`
+4. Open http://localhost:8080
 
 ### 編譯 (Webpack)
 
@@ -55,4 +58,3 @@ https://oscar60310.github.io/shipment-creator
 - [x] PWA 支援
 - [ ] 備份/復原設定
 - [ ] 報表儲存
-
